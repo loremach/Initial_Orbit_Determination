@@ -1,0 +1,3 @@
+C:/Users/lore0/OneDrive - Universidad de La Rioja/Quinto/Segundo semestre/Taller transversal I/Proyecto/Initial_Orbit_Determination/cmake-build-debug/CMakeFiles/Initial_Orbit_Determination.dir
+C:/Users/lore0/OneDrive - Universidad de La Rioja/Quinto/Segundo semestre/Taller transversal I/Proyecto/Initial_Orbit_Determination/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/lore0/OneDrive - Universidad de La Rioja/Quinto/Segundo semestre/Taller transversal I/Proyecto/Initial_Orbit_Determination/cmake-build-debug/CMakeFiles/rebuild_cache.dir

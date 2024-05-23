@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.23"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Initial_Orbit_Determination",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Initial_Orbit_Determination::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Initial_Orbit_Determination-Debug-4a954ca2aacff7029a6b.json",
+					"name" : "Initial_Orbit_Determination",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/lore0/OneDrive - Universidad de La Rioja/Quinto/Segundo semestre/Taller transversal I/Proyecto/Initial_Orbit_Determination/cmake-build-debug",
+		"source" : "C:/Users/lore0/OneDrive - Universidad de La Rioja/Quinto/Segundo semestre/Taller transversal I/Proyecto/Initial_Orbit_Determination"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
