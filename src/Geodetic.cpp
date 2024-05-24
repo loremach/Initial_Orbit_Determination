@@ -31,7 +31,7 @@ void Geodetic(Matrix r, double& lon, double& lat, double& h){
         N      =  R_equ / sqrt(1.0-e2*SinPhi*SinPhi);
         dZ_new =  N*e2*SinPhi;
 
-        if ( abs(dZ-dZ_new) < epsRequ )
+        if (fabs(dZ-dZ_new) < epsRequ )
             break;
         
         dZ = dZ_new;

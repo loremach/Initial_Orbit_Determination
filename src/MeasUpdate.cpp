@@ -5,12 +5,12 @@ void MeasUpdate(Matrix & K, Matrix & x, Matrix & P, double z, double g, double s
 
     Matrix Inv_W = zeros(m,m);
     Inv_W(1, 1) = s*s;    // Inverse weight (measurement covariance)
-    
+
     // Kalman gain
     K = transpose(P*transpose(G)*inv(Inv_W+G*P*transpose(G)));
-    
+
     // State update
-    x = x + K(1,1)*(z-g);
+    x = x + K*(z-g);
 
     // Covariance update
     P = (eye(n)-transpose(K)*G)*P;

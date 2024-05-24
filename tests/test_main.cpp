@@ -57,7 +57,7 @@ int m_equals(double **A, double **B, int f, int c, double p){
 
     for(int i = 0; i < f; i++){
         for(int j = 0; j < c; j++){
-            if(abs(A[i][j]-B[i][j]) > p){
+            if(fabs(A[i][j]-B[i][j]) > p){
                 printf("%2.20lf %2.20lf\n", A[i][j], B[i][j]);
                 equal = 0;
             }
@@ -284,8 +284,8 @@ int timediff_01(){
     timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
     double eps = 1e-4;
 
-    _assert(abs(UT1_TAI-UT1_TAI_m)<eps && abs(UTC_GPS-UTC_GPS_m)<eps && abs(UT1_GPS-UT1_GPS_m)<eps 
-            && abs(TT_UTC-TT_UTC_m)<eps && abs(GPS_UTC-GPS_UTC_m)<eps);
+    _assert(fabs(UT1_TAI-UT1_TAI_m)<eps && fabs(UTC_GPS-UTC_GPS_m)<eps && fabs(UT1_GPS-UT1_GPS_m)<eps
+            && fabs(TT_UTC-TT_UTC_m)<eps && fabs(GPS_UTC-GPS_UTC_m)<eps);
 
     return 0;
 }
@@ -309,8 +309,8 @@ int timediff_02(){
     timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
     double eps = 1e-4;
 
-    _assert(abs(UT1_TAI-UT1_TAI_m)<eps && abs(UTC_GPS-UTC_GPS_m)<eps && abs(UT1_GPS-UT1_GPS_m)<eps 
-            && abs(TT_UTC-TT_UTC_m)<eps && abs(GPS_UTC-GPS_UTC_m)<eps);
+    _assert(fabs(UT1_TAI-UT1_TAI_m)<eps && fabs(UTC_GPS-UTC_GPS_m)<eps && fabs(UT1_GPS-UT1_GPS_m)<eps
+            && fabs(TT_UTC-TT_UTC_m)<eps && fabs(GPS_UTC-GPS_UTC_m)<eps);
 
     return 0;
 }
@@ -389,8 +389,8 @@ int AzElPa_01(){
     
     _assert(m_equals(dAds_comp.data, dAds.data, 1, 3, 1e-14));
     _assert(m_equals(dEds_comp.data, dEds.data, 1, 3, 1e-14));
-    _assert(abs(Az-Az_comp)<1e-5);
-    _assert(abs(El-El_comp)<1e-5);
+    _assert(fabs(Az-Az_comp)<1e-5);
+    _assert(fabs(El-El_comp)<1e-5);
 
     return 0;
 }
@@ -410,8 +410,8 @@ int AzElPa_02(){
 
     _assert(m_equals(dAds_comp.data, dAds.data, 1, 3, 1e-14));
     _assert(m_equals(dEds_comp.data, dEds.data, 1, 3, 1e-14));
-    _assert(abs(Az-Az_comp)<1e-5);
-    _assert(abs(El-El_comp)<1e-5);
+    _assert(fabs(Az-Az_comp)<1e-5);
+    _assert(fabs(El-El_comp)<1e-5);
 
     return 0;
 }
@@ -467,7 +467,7 @@ int EccAnom_01(){
     double e = -3.63; 
     double compare = 0.188782546113942;
     double result = EccAnom(M, e);
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -477,7 +477,7 @@ int EccAnom_02(){
     double e = 4.22; 
     double compare = 3.488484545359726;
     double result = EccAnom(M, e);
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -493,9 +493,9 @@ int Geodetic_01(){
     double h_comp = -6.355517616575113e+06;
     
     Geodetic(r, lon, lat, h);
-    _assert(abs(lon_comp - lon)<1e-7);
-    _assert(abs(lat_comp - lat)<1e-7);
-    _assert(abs(h_comp - h)<1e-7);
+    _assert(fabs(lon_comp - lon)<1e-7);
+    _assert(fabs(lat_comp - lat)<1e-7);
+    _assert(fabs(h_comp - h)<1e-7);
 
     return 0;
 }
@@ -511,9 +511,9 @@ int Geodetic_02(){
     double h_comp = -6.351330616563200e+06;
     
     Geodetic(r, lon, lat, h);
-    _assert(abs(lon_comp - lon)<1e-7);
-    _assert(abs(lat_comp - lat)<1e-7);
-    _assert(abs(h_comp - h)<1e-7);
+    _assert(fabs(lon_comp - lon)<1e-7);
+    _assert(fabs(lat_comp - lat)<1e-7);
+    _assert(fabs(h_comp - h)<1e-7);
 
     return 0;
 }
@@ -547,15 +547,15 @@ int IERS_01(){
 
     IERS(x_pole, y_pole, UT1_UTC, LOD, dpsi, deps, dx_pole, dy_pole, TAI_UTC, eop, Mjd_UTC, interp);
     
-    _assert(abs(x_pole_comp - x_pole)<1e-7);
-    _assert(abs(y_pole_comp - y_pole)<1e-7);
-    _assert(abs(UT1_UTC_comp - UT1_UTC)<1e-7);
-    _assert(abs(LOD_comp - LOD)<1e-7);
-    _assert(abs(dpsi_comp - dpsi)<1e-7);
-    _assert(abs(deps_comp - deps)<1e-7);
-    _assert(abs(dx_pole_comp - dx_pole)<1e-7);
-    _assert(abs(dy_pole_comp - dy_pole)<1e-7);
-    _assert(abs(TAI_UTC_comp - TAI_UTC)<1e-7);
+    _assert(fabs(x_pole_comp - x_pole)<1e-7);
+    _assert(fabs(y_pole_comp - y_pole)<1e-7);
+    _assert(fabs(UT1_UTC_comp - UT1_UTC)<1e-7);
+    _assert(fabs(LOD_comp - LOD)<1e-7);
+    _assert(fabs(dpsi_comp - dpsi)<1e-7);
+    _assert(fabs(deps_comp - deps)<1e-7);
+    _assert(fabs(dx_pole_comp - dx_pole)<1e-7);
+    _assert(fabs(dy_pole_comp - dy_pole)<1e-7);
+    _assert(fabs(TAI_UTC_comp - TAI_UTC)<1e-7);
 
     return 0;
 }
@@ -587,15 +587,15 @@ int IERS_02(){
 
     IERS(x_pole, y_pole, UT1_UTC, LOD, dpsi, deps, dx_pole, dy_pole, TAI_UTC, eop, Mjd_UTC);
     
-    _assert(abs(x_pole_comp - x_pole)<1e-7);
-    _assert(abs(y_pole_comp - y_pole)<1e-7);
-    _assert(abs(UT1_UTC_comp - UT1_UTC)<1e-7);
-    _assert(abs(LOD_comp - LOD)<1e-7);
-    _assert(abs(dpsi_comp - dpsi)<1e-7);
-    _assert(abs(deps_comp - deps)<1e-7);
-    _assert(abs(dx_pole_comp - dx_pole)<1e-7);
-    _assert(abs(dy_pole_comp - dy_pole)<1e-7);
-    _assert(abs(TAI_UTC_comp - TAI_UTC)<1e-7);
+    _assert(fabs(x_pole_comp - x_pole)<1e-7);
+    _assert(fabs(y_pole_comp - y_pole)<1e-7);
+    _assert(fabs(UT1_UTC_comp - UT1_UTC)<1e-7);
+    _assert(fabs(LOD_comp - LOD)<1e-7);
+    _assert(fabs(dpsi_comp - dpsi)<1e-7);
+    _assert(fabs(deps_comp - deps)<1e-7);
+    _assert(fabs(dx_pole_comp - dx_pole)<1e-7);
+    _assert(fabs(dy_pole_comp - dy_pole)<1e-7);
+    _assert(fabs(TAI_UTC_comp - TAI_UTC)<1e-7);
 
     return 0;
 }
@@ -608,7 +608,7 @@ int MeanObliquity_01(){
 
     
     result = MeanObliquity(Mjd_TT);
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -620,7 +620,7 @@ int MeanObliquity_02(){
 
     
     result = MeanObliquity(Mjd_TT);
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -636,7 +636,7 @@ int Mjday_01(){
     double compare = 6.042881886574067e+04;
 
     result = Mjday(yr, mon, day, hr, min, sec);
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -649,7 +649,7 @@ int Mjday_02(){
     double compare = 50966;
 
     result =  Mjday(yr, mon, day);
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -660,7 +660,7 @@ int Mjday_TDB_01(){
     double compare = 4.573548924999999e+07;
 
     result =  Mjday_TDB(Mjd_TT);
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -671,7 +671,7 @@ int Mjday_TDB_02(){
     double compare = 4.573500000000000e+10;
 
     result =  Mjday_TDB(Mjd_TT);
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -716,8 +716,8 @@ int NutAngles_01(){
     
     NutAngles(Mjd_TT, dpsi, deps);
 
-    _assert(abs(dpsi_comp - dpsi)<1e-10);
-    _assert(abs(deps_comp - deps)<1e-10);
+    _assert(fabs(dpsi_comp - dpsi)<1e-10);
+    _assert(fabs(deps_comp - deps)<1e-10);
 
     return 0;
 }
@@ -733,8 +733,8 @@ int NutAngles_02(){
     
     NutAngles(Mjd_TT, dpsi, deps);
 
-    _assert(abs(dpsi_comp - dpsi)<1e-10);
-    _assert(abs(deps_comp - deps)<1e-10);
+    _assert(fabs(dpsi_comp - dpsi)<1e-10);
+    _assert(fabs(deps_comp - deps)<1e-10);
 
     return 0;
 }
@@ -746,7 +746,7 @@ int EqnEquinox_01(){
     
     result = EqnEquinox(Mjd_TT);
 
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -759,7 +759,7 @@ int EqnEquinox_02(){
     
     result = EqnEquinox(Mjd_TT);
 
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -898,7 +898,7 @@ int angl_01(){
 
     result = angl(vec1, vec2);
 
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -910,7 +910,7 @@ int gmst_01(){
 
     result = gmst(Mjd_UT1);
 
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -922,7 +922,7 @@ int gmst_02(){
 
     result = gmst(Mjd_UT1);
 
-    _assert(abs(compare - result)<1e-7);
+    _assert(fabs(compare - result)<1e-7);
 
     return 0;
 }
@@ -964,7 +964,7 @@ int LTC_02(){
 }
 
 int MeasUpdate_01(){
-    Matrix K(3, 3);     
+    Matrix K(3);
     Matrix x(3, 3);     
     x(1,1) = -3.21;     x(1,2) = -0.23;     x(1,3) = 2.13;    
     x(2,1) = 9.23;      x(2,2) = 1.2;       x(2,3) = 4.23;      
@@ -1030,13 +1030,13 @@ int elements_01(){
 
     elements(p, a, e, i, Omega, omega, M, y);
 
-    _assert(abs(p_res - p)<1e-15);
-    _assert(abs(a_res - a)<1e-6);
-    _assert(abs(e_res - e)<1e-6);
-    _assert(abs(i_res - i)<1e-6);
-    _assert(abs(Omega_res - Omega)<1e-6);
-    _assert(abs(omega_res - omega)<1e-6);
-    _assert(abs(M_res - M)<1e-6);
+    _assert(fabs(p_res - p)<1e-15);
+    _assert(fabs(a_res - a)<1e-6);
+    _assert(fabs(e_res - e)<1e-6);
+    _assert(fabs(i_res - i)<1e-6);
+    _assert(fabs(Omega_res - Omega)<1e-6);
+    _assert(fabs(omega_res - omega)<1e-6);
+    _assert(fabs(M_res - M)<1e-6);
 
     return 0;
 }
@@ -1063,13 +1063,13 @@ int elements_02(){
 
     elements(p, a, e, i, Omega, omega, M, y);
 
-    _assert(abs(p_res - p)<1e-15);
-    _assert(abs(a_res - a)<1e-6);
-    _assert(abs(e_res - e)<1e-6);
-    _assert(abs(i_res - i)<1e-6);
-    _assert(abs(Omega_res - Omega)<1e-6);
-    _assert(abs(omega_res - omega)<1e-6);
-    _assert(abs(M_res - M)<1e-6);
+    _assert(fabs(p_res - p)<1e-15);
+    _assert(fabs(a_res - a)<1e-6);
+    _assert(fabs(e_res - e)<1e-6);
+    _assert(fabs(i_res - i)<1e-6);
+    _assert(fabs(Omega_res - Omega)<1e-6);
+    _assert(fabs(omega_res - omega)<1e-6);
+    _assert(fabs(M_res - M)<1e-6);
 
     return 0;
 }
@@ -1150,7 +1150,7 @@ int gast_01(){
     double compare = 2.747772712783872;
     double result = gast(Mjd_UT1);
 
-    _assert(abs(compare - result)<1e-6);
+    _assert(fabs(compare - result)<1e-6);
 
     return 0;
 }
@@ -1322,9 +1322,9 @@ int gibbs_01(){
     gibbs(r1, r2, r3, v2, theta, theta1, cop, error);
 
     _assert(m_equals(v2_comp.data, v2.data, 1, 3, 1e-3));
-    _assert(abs(theta_comp - theta) < 1e-9);
-    _assert(abs(theta1_comp - theta1) < 1e-9);
-    _assert(abs(cop_comp - cop) < 1e-9);
+    _assert(fabs(theta_comp - theta) < 1e-9);
+    _assert(fabs(theta1_comp - theta1) < 1e-9);
+    _assert(fabs(cop_comp - cop) < 1e-9);
     _assert(error.compare(error_comp) == 0);
     return 0;
 }
@@ -1346,9 +1346,9 @@ int gibbs_02(){
     gibbs(r1, r2, r3,v2, theta, theta1, cop, error);
 
     _assert(m_equals(v2_comp.data, v2.data, 1, 3, 1e-3));
-    _assert(abs(theta_comp - theta) < 1e-9);
-    _assert(abs(theta1_comp - theta1) < 1e-9);
-    _assert(abs(cop_comp - cop) < 1e-9);
+    _assert(fabs(theta_comp - theta) < 1e-9);
+    _assert(fabs(theta1_comp - theta1) < 1e-9);
+    _assert(fabs(cop_comp - cop) < 1e-9);
     _assert(error.compare(error_comp) == 0);
     return 0;
 }
@@ -1374,9 +1374,9 @@ int hgibbs_01(){
     hgibbs(r1, r2, r3, Mjd1, Mjd2, Mjd3, v2, theta, theta1, cop, error);
 
     _assert(m_equals(v2_comp.data, v2.data, 1, 3, 1e8));
-    _assert(abs(theta_comp - theta) < 1e-9);
-    _assert(abs(theta1_comp - theta1) < 1e-9);
-    _assert(abs(cop_comp - cop) < 1e-9);
+    _assert(fabs(theta_comp - theta) < 1e-9);
+    _assert(fabs(theta1_comp - theta1) < 1e-9);
+    _assert(fabs(cop_comp - cop) < 1e-9);
     _assert(error.compare(error_comp) == 0);
     return 0;
 }
@@ -1435,9 +1435,9 @@ int DEInteg_01(){
     y_comp(1) = 5542555.89427452;    y_comp(2) = 3213514.83814162;    y_comp(3) = 3990892.92789074;
     y_comp(4) = 5394.06894044389;    y_comp(5) = -2365.2129057402;   y_comp(6) = -7061.8448137347;
 
-    DEInteg (Accel, neqn, y, t, tout, relerr, abserr, iflag, work, iwork);
+    Matrix result = DEInteg (Accel, neqn, y, t, tout, relerr, abserr);
 
-    _assert(m_equals(y.data, y_comp.data, 1, 6, 1e-1));
+    _assert(m_equals(result.data, y_comp.data, 1, 6, 1e-1));
 
     return 0;
 }
@@ -1462,10 +1462,6 @@ int DEInteg_02(){
     double relerr = 1e-13;
     double abserr = 1e-6;
 
-    int iflag = 1;
-    double *work = new double[100+21*neqn];
-    int iwork[5];
-
     Matrix y_comp(42);
     y_comp(1) = 7104362.80284458;     y_comp(2) = 1279759.73542038;         y_comp(3) = -20940.6848441728;       y_comp(4) = 538.324123651396;
     y_comp(5) = -3091.45215137201;       y_comp(6) = -6736.00414345875;        y_comp(7) = 1.00010106496325;        y_comp(8) = 2.82228797112616e-05;
@@ -1479,9 +1475,9 @@ int DEInteg_02(){
     y_comp(37) = 9.23656078243316e-07;   y_comp(38) = 1.70244437291363e-07;    y_comp(39) = 9.99976848260984;       y_comp(40) = 3.2345797180921e-08;
     y_comp(41) = 6.45998875635734e-09;   y_comp(42) = 0.999946816394809;
 
-    DEInteg (VarEqn, neqn, y, t, tout, relerr, abserr, iflag, work, iwork);
+    Matrix result = DEInteg (VarEqn, neqn, y, t, tout, relerr, abserr);
 
-    _assert(m_equals(y.data, y_comp.data, 1, 42, 1e-1));
+    _assert(m_equals(result.data, y_comp.data, 1, 42, 1e-1));
 
     return 0;
 }
@@ -1669,7 +1665,8 @@ int main() {
     all_tests();
     return 0;
 }
-*/
+ */
+
 //Accel
 //AuxParam es un conjunto de datos que se genera en el principal. Es un struct.
 /*

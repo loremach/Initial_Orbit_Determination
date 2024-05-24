@@ -156,7 +156,7 @@ void anglesg (double az1, double az2, double az3, double el1, double el2, double
     rho2 = 99999999.9;
     double ll   = 0;
 
-    while ((abs(rhoold2-rho2) > 1e-12) && (ll <= 0 )) {
+    while ((fabs(rhoold2-rho2) > 1e-12) && (ll <= 0 )) {
         ll = ll + 1;
         rho2 = rhoold2;
 

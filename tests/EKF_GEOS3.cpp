@@ -68,12 +68,8 @@ int main(){
     Global::auxparam.planets = 1;
 
     int n_eqn  = 6;
-    int iflag = 1;
-    double *work = new double[100+21*n_eqn];
-    int iwork[5];
 
-    DEInteg(Accel, n_eqn, Y0_apr, 0, -((*Global::obs)(9,1)-Mjd0)*86400.0, 1e-13, 1e-6, iflag, work, iwork);
-    Matrix Y = Y0_apr;
+    Matrix Y = DEInteg(Accel, n_eqn, Y0_apr, 0, -((*Global::obs)(9,1)-Mjd0)*86400.0, 1e-13, 1e-6);
 
     Matrix P = zeros(6, 6);
 
@@ -83,7 +79,6 @@ int main(){
     for(int i = 4; i <= 6; i++){
         P(i,i)=1e3;
     }
-
 
     Matrix LT = LTC(lon,lat);
 
@@ -113,6 +108,26 @@ int main(){
     double TT_UTC;
     double GPS_UTC;
 
+    double Mjd_TT, Mjd_UT1;
+    double theta;
+    double Azim;  double Elev;
+    double Dist;
+
+    Matrix r(3);
+    Matrix U(3);
+    Matrix s(3);
+    Matrix dAds(3);
+    Matrix dEds(3);
+    Matrix aux1(3);
+    Matrix aux2(3);
+    Matrix aux3(3);
+    Matrix aux4(3);
+    Matrix dAdY(6);
+    Matrix dEdY(6);
+    Matrix K(6);
+    Matrix dDds(3);
+    Matrix dDdY(6);
+
     for (int i = 1; i <= nobs; i++){
         // Previous step
         t_old = t;
@@ -125,8 +140,8 @@ int main(){
 
         timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
 
-        double Mjd_TT = Mjd_UTC + TT_UTC/86400.0;
-        double Mjd_UT1 = Mjd_TT + (UT1_UTC-TT_UTC)/86400.0;
+        Mjd_TT = Mjd_UTC + TT_UTC/86400.0;
+        Mjd_UT1 = Mjd_TT + (UT1_UTC-TT_UTC)/86400.0;
         Global::auxparam.Mjd_UTC = Mjd_UTC;
         Global::auxparam.Mjd_TT = Mjd_TT;
 
@@ -141,10 +156,7 @@ int main(){
             }
         }
         n_eqn = 42;
-        iflag = 1;
-        work = new double[100+21*n_eqn];
-
-        DEInteg (VarEqn, n_eqn, yPhi, 0, t-t_old, 1e-13, 1e-6, iflag, work, iwork);
+        yPhi = DEInteg (VarEqn, n_eqn, yPhi, 0, t-t_old, 1e-13, 1e-6);
 
         // Extract state transition matrices
         for(int j = 1; j<=6; j++){
@@ -152,41 +164,34 @@ int main(){
                 Phi(k,j) = yPhi(6*j+k);
             }
         }
-
         n_eqn = 6;
-        iflag = 1;
-        work = new double[100+21*n_eqn];
 
-        DEInteg (Accel, n_eqn, Y_old, 0, t-t_old, 1e-13, 1e-6, iflag, work, iwork);
-        Y = Y_old;
+        Y = DEInteg (Accel, n_eqn, Y_old, 0, t-t_old, 1e-13, 1e-6);
+
         // Topocentric coordinates
-        double theta = gmst(Mjd_UT1);                    // Earth rotation
-        Matrix U = R_z(theta);
-        Matrix r(3);
+        theta = gmst(Mjd_UT1);                    // Earth rotation
+        U = R_z(theta);
         for (int k = 1; k <=3; k++){
             r(k) = Y(k);
         }
 
-        Matrix s = transpose(LT*(U*transpose(r)-transpose(Rs)));                          // Topocentric position [m]
+        s = transpose(LT*(U*transpose(r)-transpose(Rs)));                          // Topocentric position [m]
 
         // Time update
         P = TimeUpdate(P, Phi);
 
         // Azimuth and partials
-        Matrix dAds(3);
-        Matrix dEds(3);
-        double Azim;  double Elev;
+
         AzElPa(s, Azim, Elev, dAds, dEds);// Azimuth, Elevation
-        Matrix aux1 = dAds*LT*U;
-        Matrix aux2 = zeros(1,3);
-        Matrix dAdY(6);
+        aux1 = dAds*LT*U;
+        aux2 = zeros(1,3);
+
         for( int k = 1; k <= 3; k++){
             dAdY(k) = aux1(k);
             dAdY(k+3) = aux2(k);
         }
 
         // Measurement update
-        Matrix K(3, 3);
         MeasUpdate(K, Y, P, (*Global::obs)(i,2), Azim, sigma_az, dAdY, 6);
 
         // Range and partials
@@ -195,33 +200,48 @@ int main(){
         }
 
         s = transpose(LT*(U*transpose(r)-transpose(Rs)));                          // Topocentric position [m]
-        double Dist = norm(s);
-        Matrix dDds = s/Dist;         // Range
-        Matrix dDdY(6);
 
-        Matrix aux3 = dDds*LT*U;
-        Matrix aux4 = zeros(1,3);
+        AzElPa(s, Azim, Elev, dAds, dEds); // Azimuth, Elevation
+        aux1 = dEds*LT*U;
+        aux2 = zeros(1,3);
+        for( int k = 1; k <= 3; k++){
+            dEdY(k) = aux1(k);
+            dEdY(k+3) = aux2(k);
+        }
+
+        // Measurement update
+        MeasUpdate(K, Y, P, (*Global::obs)(i,3), Elev, sigma_el, dEdY, 6);
+
+        // Range and partials
+        for (int k = 1; k <=3; k++){
+            r(k) = Y(k);
+        }
+
+        s = transpose(LT*(U*transpose(r)-transpose(Rs)));                          // Topocentric position [m]
+
+        Dist = norm(s);
+        dDds = s/Dist;         // Range
+
+        aux3 = dDds*LT*U;
+        aux4 = zeros(1,3);
 
         for (int k = 1; k <= 3; k++){
             dDdY(k) = aux3(k);
             dDdY(k+3) = aux4(k);
         }
+
         // Measurement update
         MeasUpdate(K, Y, P, (*Global::obs)(i,4), Dist, sigma_range, dDdY, 6);
     }
     IERS(x_pole, y_pole, UT1_UTC, LOD, dpsi, deps, dx_pole, dy_pole, TAI_UTC, eop, (*Global::obs)(46,1), 'l');
     timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
 
-    double Mjd_TT = Mjd_UTC + TT_UTC/86400.0;
+    Mjd_TT = Mjd_UTC + TT_UTC/86400.0;
     Global::auxparam.Mjd_UTC = Mjd_UTC;
     Global::auxparam.Mjd_TT = Mjd_TT;
 
     n_eqn = 6;
-    iflag = 1;
-    work = new double[100+21*n_eqn];
-
-    DEInteg (Accel, n_eqn, Y, 0, -((*Global::obs)(46,1)-(*Global::obs)(1,1))*86400.0, 1e-13, 1e-6, iflag, work, iwork);
-    Matrix Y0 = Y;
+    Matrix Y0 = DEInteg (Accel, n_eqn, Y, 0, -((*Global::obs)(46,1)-(*Global::obs)(1,1))*86400.0, 1e-13, 1e-6);
 
     Matrix Y_true (6);
     Y_true(1) = 5753.173e3;     Y_true(2) = 2673.361e3;     Y_true(3) = 3440.304e3;

@@ -22,7 +22,7 @@ void hgibbs (Matrix r1, Matrix r2, Matrix r3, double Mjd1, double Mjd2, double M
     Matrix r1n = unit( r1 );
     cop =  asin( dot( pn,r1n ) );
 
-    if (abs( dot(r1n,pn)) > 0.017452406 ) {
+    if (fabs( dot(r1n,pn)) > 0.017452406 ) {
         error = "not coplanar";
     }
 

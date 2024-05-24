@@ -20,7 +20,7 @@ void gibbs(Matrix r1,Matrix r2,Matrix r3, Matrix & v2, double & theta, double & 
     Matrix r1n = unit( r1 );
     cop =  asin( dot( pn,r1n ) );
 
-    if ( abs( dot(r1n,pn) ) > 0.017452406 )  
+    if (fabs( dot(r1n,pn) ) > 0.017452406 )
        error= "not coplanar";
     
     Matrix d = p + q + w;
@@ -34,7 +34,7 @@ void gibbs(Matrix r1,Matrix r2,Matrix r3, Matrix & v2, double & theta, double & 
     // determine if  the orbit is possible. both d and n must be in
     // the same direction, and non-zero.
     // -------------------------------------------------------------
-    if ( ( abs(magd)<small ) || ( abs(magn)<small ) || ( dot(nn,dn) < small )){
+    if ( (fabs(magd)<small ) || (fabs(magn)<small ) || ( dot(nn,dn) < small )){
         error= "impossible";
     }else{
         theta  = angl( r1,r2 );

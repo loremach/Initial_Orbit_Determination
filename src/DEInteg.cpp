@@ -1582,12 +1582,15 @@ void timestamp ( )
 
 }
 
-void DEInteg ( Matrix (*f) (double, Matrix &), int neqn, Matrix & y,
-               double t, double tout, double relerr, double abserr, int &iflag,
-               double work[], int iwork[] ){
-
+Matrix DEInteg ( Matrix (*f) (double, Matrix &), int neqn, Matrix y,
+               double t, double tout, double relerr, double abserr){
+    int iflag = 1;
+    double *work = new double[100+21*neqn];
+    int iwork[5];
     double * y_array = vectorToArray(y);
     ode(f, neqn, y_array, t, tout, relerr, abserr, iflag, work, iwork);
-    y = arrayToVector(y_array, neqn);
+    Matrix result = arrayToVector(y_array, neqn);
     delete [] y_array;
+    delete [] work;
+    return result;
 }

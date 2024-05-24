@@ -23,6 +23,5 @@ void step ( double &x, double y[], Matrix (*f) (double, Matrix &),
             double psi[], double alpha[], double beta[], double sig[], double v[],
             double w[], double g[], bool &phase1, int &ns, bool &nornd );
 void timestamp ( );
-void DEInteg ( Matrix (*f) (double, Matrix &), int neqn, Matrix & y,
-           double t, double tout, double relerr, double abserr, int &iflag,
-           double work[], int iwork[] );
+Matrix DEInteg ( Matrix (*f) (double, Matrix &), int neqn, Matrix y,
+           double t, double tout, double relerr, double abserr);
