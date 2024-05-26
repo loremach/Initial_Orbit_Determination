@@ -1,3 +1,28 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          Mjday
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/23
+//
+/*
+ * @file Mjday.cpp
+ * @brief Computes the Modified Julian Date (Mjd)
+ *
+ * @details This file contains the implementation of the function to compute the Modified Julian Date (Mjd) from year, month, day, hour, minute, and second.
+ *
+ * @param year Year
+ * @param mon Month
+ * @param day Day
+ * @param hr Universal time hour
+ * @param min Universal time minute
+ * @param sec Universal time second
+ * @return Mjd Modified Julian Date
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\Mjday.h"
 
 double Mjday(int yr, int mon, int day, int hr, int min, int sec){

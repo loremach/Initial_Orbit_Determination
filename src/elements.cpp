@@ -1,3 +1,31 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          elements
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/05
+//
+/*
+ * @file elements.cpp
+ * @brief Computes the osculating Keplerian elements from the satellite state vector for elliptic orbits
+ *
+ * @details This file contains the declaration of the function to compute the osculating Keplerian elements
+ * from the satellite state vector for elliptic orbits. The function cannot be used with state vectors
+ * describing a circular or non-inclined orbit.
+ *
+ * @param y State vector (x, y, z, vx, vy, vz)
+ * @param p Semilatus rectum in meters
+ * @param a Semimajor axis
+ * @param e Eccentricity
+ * @param i Inclination in radians
+ * @param Omega Longitude of the ascending node in radians
+ * @param omega Argument of pericenter in radians
+ * @param M Mean anomaly in radians
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\elements.h"
 #include "..\include\utils.h"
 

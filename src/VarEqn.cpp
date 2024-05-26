@@ -1,3 +1,25 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          VarEqn
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/21
+//
+/*
+ * @file VarEqn.cpp
+ * @brief Header file for computing the variational equations
+ *
+ * @details This file contains the implementation for computing the variational equations,
+ * which involve the derivative of the state vector and the state transition matrix.
+ *
+ * @param x Time since epoch in [s]
+ * @param yPhi (6+36)-dimensional vector comprising the state vector (y) and the state transition matrix (Phi) in column-wise storage order
+ * @param[out] yPhip Derivative of yPhi
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\VarEqn.h"
 
 Matrix VarEqn(double x, Matrix & yPhi){

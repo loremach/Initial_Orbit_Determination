@@ -1,3 +1,24 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          EKF_GEOS3
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/23
+//
+/* @file initial_orbit_determination.c
+ *  @brief Initial Orbit Determination using Gauss and Extended Kalman Filter methods
+ *
+ * References:
+ * - O. Montenbruck, E. Gill, "Satellite Orbits - Models, Methods, and Applications", Springer Verlag, Heidelberg, 2000.
+ * - D. Vallado, "Fundamentals of Astrodynamics and Applications", 4th Edition, 2013.
+ * - G. Seeber, "Satellite Geodesy", 2nd Edition, 2003.
+ * - Meysam Mahooti
+ *
+ *  @author Lorena Remacha Bordallo
+ *  @bug No known bugs
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>

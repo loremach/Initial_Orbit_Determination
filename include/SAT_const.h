@@ -1,3 +1,17 @@
+// $Header$
+//----------------------------------------------------------------------------------------
+//                          SAT_const
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/16
+//
+/*
+ * @file SAT_const.h
+ * @brief A class containing mathematical and physical constants.
+ *
+ * @author Lorena Remacha Bordallo
+*/
 #ifndef _CONST_
 #define _CONST_
 

@@ -1,3 +1,17 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          matrix
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+/*
+ * @file matrix.cpp
+ * @class Matrix
+ * @brief Class representing a matrix and its operations.
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "../include/matrix.h"
 
 Matrix::Matrix(const int v_size)

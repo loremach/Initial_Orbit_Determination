@@ -1,3 +1,25 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          Position
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/26
+//
+/*
+ * @file Position.cpp
+ * @brief Computes the position vector (r [m]) from geodetic coordinates
+ *
+ * @details This file contains the implementation of the function to compute the position vector (r [m]) from geodetic coordinates (Longitude [rad], latitude [rad], altitude [m]).
+ *
+ * @param lon Geodetic East longitude [rad]
+ * @param lat Geodetic latitude [rad]
+ * @param alt Altitude [m]
+ * @param[out] r Position vector (r [m])
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\Position.h"
 
 

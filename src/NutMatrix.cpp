@@ -1,3 +1,23 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          NutMatrix
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/02
+//
+/*
+ * @file NutMatrix.cpp
+ * @brief Transformation from mean to true equator and equinox
+ *
+ * @details This file contains the implementation of the function to perform the transformation from mean to true equator and equinox.
+ *
+ * @param Mjd_TT Modified Julian Date (Terrestrial Time)
+ * @param[out] NutMat Nutation matrix
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\NutMatrix.h"
 
 Matrix NutMatrix(double Mjd_TT)

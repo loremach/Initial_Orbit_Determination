@@ -1,3 +1,24 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          Geodetic
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/26
+//
+/*
+ * @file Geodetic.cpp
+ * @brief Computes geodetic coordinates (Longitude [rad], latitude [rad], altitude [m]) from a given position vector (r [m])
+ *
+ * @details This file contains the implementation of the function to compute geodetic coordinates from a given position vector.
+ *
+ * @param r Position vector in meters
+ * @param[out] lon Longitude in radians
+ * @param[out] lat Latitude in radians
+ * @param[out] alt Altitude in meters
+ *
+ * @author Lorena Remacha Bordallo
+*/
 #include "..\include\Geodetic.h"
 
 void Geodetic(Matrix r, double& lon, double& lat, double& h){

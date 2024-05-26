@@ -1,3 +1,23 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          unit
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/23
+//
+/*
+ * @file unit.cpp
+ * @brief Computes unit vectors
+ *
+ * @details This file contains the implementation of the function to compute unit vectors.
+ *
+ * @param vec Input vector
+ * @param[out] outvec Unit vector
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\unit.h"
 
 Matrix unit(Matrix vec){

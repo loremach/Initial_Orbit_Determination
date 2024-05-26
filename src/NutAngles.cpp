@@ -1,3 +1,24 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          NutAngles
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/28
+//
+/*
+ * @file NutAngles.cpp
+ * @brief Computes the nutation in longitude and obliquity
+ *
+ * @details This file contains the implementation of the function to compute the nutation in longitude and obliquity.
+ *
+ * @param Mjd_TT Modified Julian Date (Terrestrial Time)
+ * @param[out] dpsi Nutation in longitude [rad]
+ * @param[out] deps Nutation in obliquity [rad]
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\NutAngles.h"
 #include "..\include\utils.h"
 

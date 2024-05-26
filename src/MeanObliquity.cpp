@@ -1,3 +1,23 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          MeanObliquity
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/26
+//
+/*
+ * @file MeanObliquity.cpp
+ * @brief Computes the mean obliquity of the ecliptic
+ *
+ * @details This file contains the implementation of the function to compute the mean obliquity of the ecliptic.
+ *
+ * @param Mjd_TT Modified Julian Date (Terrestrial Time)
+ * @return MOblq Mean obliquity of the ecliptic [rad]
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\MeanObliquity.h"
 
 double MeanObliquity (double Mjd_TT){

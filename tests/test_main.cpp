@@ -1667,30 +1667,3 @@ int main() {
 }
  */
 
-//Accel
-//AuxParam es un conjunto de datos que se genera en el principal. Es un struct.
-/*
-
-*/
-
-/*DEInteg
-traga funciones como Global::auxparam
-mirar archivos subidos en el aula
-https://people.sc.fsu.edu/~jburkardt/f77_src/ode/ode.html
-
- int iflag;
- iflag = 1;
- double *work;
- work = new double[100+21*neqn];
- int iwork[5];
-*/
-
-/*anglesg
-roots devuelve las raices de un polinomio
-solucion: robar codigo de crbond.com/downloads/rpoly.cpp
-void roots(Matrix coef, Matrix & real, Matrix & im){
-    sacar vectores de las matrices
-    llamar rpoly
-    coger resutlados y adaptar a matrices
-}
-*/

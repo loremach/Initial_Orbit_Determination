@@ -1,3 +1,20 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          DEInteg
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/26
+//
+/*
+ * @file DEInteg.cpp
+ * @brief Impplemented file for the ODE solver functions
+ *
+ * @details This file contains the declarations for solving ordinary differential equations (ODEs) stepsize multistep method of Shampine & Gordon.
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 # include <cfloat>
 # include <cmath>
 # include <cstdlib>
@@ -49,130 +66,6 @@ void de
                 int &isnold
         )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    DE carries out the ODE solution algorithm.
-//
-//  Discussion:
-//
-//    ODE merely allocates storage for DE, to relieve the user of the
-//    inconvenience of a long call list.  Consequently, DE is used as
-//    described in the comments for ODE.
-//
-//  Licensing:
-//
-//    This code is distributed under the MIT license.
-//
-//  Modified:
-//
-//    02 February 2012
-//
-//  Author:
-//
-//    Original FORTRAN77 version by Lawrence Shampine, Marilyn Gordon.
-//    C++ version by John Burkardt.
-//
-//  Reference:
-//
-//    Lawrence Shampine, Marilyn Gordon,
-//    Computer Solution of Ordinary Differential Equations:
-//    The Initial Value Problem,
-//    Freeman, 1975,
-//    ISBN: 0716704617,
-//    LC: QA372.S416.
-//
-//  Parameters:
-//
-//    Input, void F ( double T, double Y[], double YP[] ), the user-supplied function
-//    which accepts input values T and Y[], evaluates the right hand
-//    sides of the ODE, and stores the result in YP[].
-//
-//    Input, int NEQN, the number of equations.
-//
-//    Input/output, double Y[NEQN], the current solution.
-//
-//    Input/output, double &T, the current value of the independent
-//    variable.
-//
-//    Input, double TOUT, the desired value of T on output.
-//
-//    Input, double RELERR, ABSERR, the relative and absolute error
-//    tolerances.  At each step, the code requires
-//      abs ( local error ) <= abs ( Y ) * RELERR + ABSERR
-//    for each component of the local error and solution vectors.
-//
-//    Input/output, int &IFLAG, indicates the status of integration.
-//    On input, IFLAG is normally 1 (or -1 in the special case where TOUT is
-//    not to be exceeded.)  On normal output, IFLAG is 2.  Other output values
-//    are:
-//    * 3, integration did not reach TOUT because the error tolerances were
-//         too small.
-//         But RELERR and ABSERR were increased appropriately for continuing;
-//    * 4, integration did not reach TOUT because more than 500 steps were taken;
-//    * 5, integration did not reach TOUT because the equations appear to be
-//         stiff;
-//    * 6, invalid input parameters (fatal error).
-//    The value of IFLAG is returned negative when the input value is negative
-//    and the integration does not reach TOUT.
-//
-//    Workspace, double YY[NEQN], used to hold old solution data.
-//
-//    Input, double WT[NEQN], the error weight vector.
-//
-//    Workspace, double P[NEQN].
-//
-//    Workspace, double YP[NEQN], used to hold values of the
-//    solution derivative.
-//
-//    Workspace, double YPOUT[NEQN], used to hold values of the
-//    solution derivative.
-//
-//    Workspace, double PHI[NEQN*16], contains divided difference
-//    information about the polynomial interpolant to the solution.
-//
-//    Workspace, double ALPHA[12], BETA[12], SIG[13].
-//
-//    Workspace, double V[12], W[12], G[13].
-//
-//    Input/output, bool &PHASE1, indicates whether the program is in the
-//    first phase, when it always wants to increase the ODE method order.
-//
-//    Workspace, double PSI[12], contains information about
-//    the polynomial interpolant to the solution.
-//
-//    Input/output, double &X, a "working copy" of T, the current value
-//    of the independent variable, which is adjusted as the code attempts
-//    to take a step.
-//
-//    Input/output, double &H, the current stepsize.
-//
-//    Input/output, double &HOLD, the last successful stepsize.
-//
-//    Input/output, bool &START, is TRUE on input for the first step.
-//    The program initializes data, and sets START to FALSE.
-//
-//    Input/output, double &TOLD, the previous value of T.
-//
-//    Input/output, double &DELSGN, the sign (+1 or -1) of TOUT - T.
-//
-//    Input/output, int &NS, the number of steps taken with stepsize H.
-//
-//    Input/output, bool &NORND, ?
-//
-//    Input/output, int &K, the order of the current ODE method.
-//
-//    Input/output, int &KOLD, the order of the ODE method on the previous step.
-//
-//    Input/output, int &ISNOLD, the previous value of ISN, the sign
-//    of IFLAG.
-//
-//  Local parameters:
-//
-//    Local, integer MAXNUM, the maximum number of steps allowed in one
-//    call to DE.
-//
 {
     double absdel;
     double abseps;
@@ -406,30 +299,6 @@ void de
 //****************************************************************************80
 
 int i4_sign ( int i )
-
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4_SIGN returns the sign of an I4.
-//
-//  Licensing:
-//
-//    This code is distributed under the MIT license.
-//
-//  Modified:
-//
-//    27 March 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int I, the integer whose sign is desired.
-//
-//    Output, int I4_SIGN, the sign of I.
 {
     int value;
 
@@ -600,135 +469,6 @@ void ode
                 double work[],
                 int iwork[]
         )
-
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    ODE is the user interface to an ordinary differential equation solver.
-//
-//  Discussion:
-//
-//    ODE integrates a system of NEQN first order ordinary differential
-//    equations of the form:
-//      dY(i)/dT = F(T,Y(1),Y(2),...,Y(NEQN))
-//      Y(i) given at T.
-//    The subroutine integrates from T to TOUT.  On return, the
-//    parameters in the call list are set for continuing the integration.
-//    The user has only to define a new value TOUT and call ODE again.
-//
-//    The differential equations are actually solved by a suite of codes
-//    DE, STEP, and INTRP.  ODE allocates virtual storage in the
-//    arrays WORK and IWORK and calls DE.  DE is a supervisor which
-//    directs the solution.  It calls the routines STEP and INTRP
-//    to advance the integration and to interpolate at output points.
-//
-//    STEP uses a modified divided difference form of the Adams PECE
-//    formulas and local extrapolation.  It adjusts the order and step
-//    size to control the local error per unit step in a generalized
-//    sense.  Normally each call to STEP advances the solution one step
-//    in the direction of TOUT.  For reasons of efficiency, DE integrates
-//    beyond TOUT internally, though never beyond T+10*(TOUT-T), and
-//    calls INTRP to interpolate the solution at TOUT.  An option is
-//    provided to stop the integration at TOUT but it should be used
-//    only if it is impossible to continue the integration beyond TOUT.
-//
-//    On the first call to ODE, the user must provide storage in the calling
-//    program for the arrays in the call list,
-//      Y(NEQN), WORK(100+21*NEQN), IWORK(5),
-//    declare F in an external statement, supply the double precision
-//      SUBROUTINE F ( T, Y, YP )
-//    to evaluate dy(i)/dt = yp(i) = f(t,y(1),y(2),...,y(neqn))
-//    and initialize the parameters:
-//    * NEQN, the number of equations to be integrated;
-//    * Y(1:NEQN), the vector of initial conditions;
-//    * T, the starting point of integration;
-//    * TOUT, the point at which a solution is desired;
-//    * RELERR, ABSERR, the relative and absolute local error tolerances;
-//    * IFLAG, an indicator to initialize the code.  Normal input
-//      is +1.  The user should set IFLAG = -1 only if it is
-//      impossible to continue the integration beyond TOUT.
-//    All parameters except F, NEQN and TOUT may be altered by the
-//    code on output, and so must be variables in the calling program.
-//
-//    On normal return from ODE, IFLAG is 2, indicating that T has been
-//    set to TOUT, and Y has been set to the approximate solution at TOUT.
-//
-//    If IFLAG is 3, then the program noticed that RELERR or ABSERR was
-//    too small; the output values of these variables are more appropriate,
-//    and integration can be resumed by setting IFLAG to 1.
-//
-//    IFLAG is -2 if the user input IFLAG = -1, and the code was able to
-//    reach TOUT exactly.  In that case, the output value of T is TOUT,
-//    and the output value of Y is the solution at TOUT, which was computed
-//    directly, and not by interpolation.
-//
-//    Other values of IFLAG generally indicate an error.
-//
-//    Normally, it is desirable to compute many points along the solution
-//    curve.  After the first successful step, more steps may be taken
-//    simply by updating the value of TOUT and calling ODE again.
-//
-//  Licensing:
-//
-//    This code is distributed under the MIT license.
-//
-//  Modified:
-//
-//    16 January 2012
-//
-//  Author:
-//
-//    Original FORTRAN77 version by Lawrence Shampine, Marilyn Gordon.
-//    C++ version by John Burkardt.
-//
-//  Reference:
-//
-//    Lawrence Shampine, Marilyn Gordon,
-//    Computer Solution of Ordinary Differential Equations:
-//    The Initial Value Problem,
-//    Freeman, 1975,
-//    ISBN: 0716704617,
-//    LC: QA372.S416.
-//
-//  Parameters:
-//
-//    Input, void F ( double T, double Y[], double YP[] ), the user-supplied function
-//    which accepts input values T and Y[], evaluates the right hand
-//    sides of the ODE, and stores the result in YP[].
-//
-//    Input, int NEQN, the number of equations.
-//
-//    Input/output, double Y[NEQN], the current solution.
-//
-//    Input/output, double &T, the current value of the independent
-//    variable.
-//
-//    Input, double TOUT, the desired value of T on output.
-//
-//    Input, double RELERR, ABSERR, the relative and absolute error
-//    tolerances.  At each step, the code requires
-//      abs ( local error ) <= abs ( y ) * relerr + abserr
-//    for each component of the local error and solution vectors.
-//
-//    Input/output, int &IFLAG, indicates the status of integration.
-//    On input, IFLAG is normally 1 (or -1 in the special case where TOUT is
-//    not to be exceeded.)  On normal output, IFLAG is 2.  Other output values
-//    are:
-//    * 3, integration did not reach TOUT because the error tolerances
-//      were too small.  But RELERR and ABSERR were increased appropriately
-//      for continuing;
-//    * 4, integration did not reach TOUT because more than 500 steps were taken;
-//    * 5, integration did not reach TOUT because the equations appear to
-//      be stiff;
-//    * 6, invalid input parameters (fatal error).
-//    The value of IFLAG is returned negative when the input value is
-//    negative and the integration does not reach TOUT.
-//
-//    Input/output, double WORK[100+21*NEQN], workspace.
-//
-//    Input/output, int IWORK[5], workspace.
-//
 {
     const int ialpha = 1;
     const int ibeta = 13;
@@ -805,31 +545,6 @@ void ode
 //****************************************************************************80
 
 double r8_sign ( double x )
-
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_SIGN returns the sign of an R8.
-//
-//  Licensing:
-//
-//    This code is distributed under the MIT license.
-//
-//  Modified:
-//
-//    18 October 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, the number whose sign is desired.
-//
-//    Output, double R8_SIGN, the sign of X.
-//
 {
     double value;
 
@@ -873,159 +588,6 @@ void step
                 int &ns,
                 bool &nornd
         )
-
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    STEP integrates the system of ODEs one step, from X to X+H.
-//
-//  Discussion:
-//
-//    This routine integrates a system of first order ordinary differential
-//    equations one step, normally from x to x+h, using a modified divided
-//    difference form of the Adams PECE formulas.  Local extrapolation is
-//    used to improve absolute stability and accuracy.  The code adjusts its
-//    order and step size to control the local error per unit step in a
-//    generalized sense.  Special devices are included to control roundoff
-//    error and to detect when the user is requesting too much accuracy.
-//
-//    STEP is normally not called directly by the user.  However, it is
-//    possible to do so.
-//
-//    On the first call to STEP, the user must pass in values for:
-//    * X, the initial value of the independent variable;
-//    * Y, the vector of initial values of dependent variables;
-//    * NEQN, the number of equations to be integrated;
-//    * H, the nominal step size indicating direction of integration
-//      and maximum size of step.  H must be a variable, not a constant;
-//    * EPS, the local error tolerance per step.  EPS must be variable;
-//    * WT, the vector of non-zero weights for error criterion;
-//    * START, set to TRUE.
-//
-//    STEP requires the L2 norm of the vector with components
-//      local error(1:NEQN) / WT(1:NEQN)
-//    to be less than EPS for a successful step.  The array WT allows the user
-//    to specify an error test appropriate for the problem.  For example,
-//    if WT(L):
-//    = 1.0, specifies absolute error,
-//    = abs(Y(L)), specifies error relative to the most recent value of
-//      the L-th component of the solution,
-//    = abs(YP(L)), specifies error relative to the most recent value of
-//      the L-th component of the derivative,
-//    = max (WT(L),abs(Y(L))), specifies error relative to the largest
-//      magnitude of L-th component obtained so far,
-//    = abs(Y(L))*RELERR/EPS + ABSERR/EPS, specifies a mixed
-//      relative-absolute test where EPS = max ( RELERR, ABSERR ).
-//
-//    On subsequent calls to STEP, the routine is designed so that all
-//    information needed to continue the integration, including the next step
-//    size H and the next order K, is returned with each step.  With the
-//    exception of the step size, the error tolerance, and the weights, none
-//    of the parameters should be altered.  The array WT must be updated after
-//    each step to maintain relative error tests like those above.
-//
-//    Normally the integration is continued just beyond the desired endpoint
-//    and the solution interpolated there with subroutine INTRP.  If it is
-//    impossible to integrate beyond the endpoint, the step size may be
-//    reduced to hit the endpoint since the code will not take a step
-//    larger than the H input.
-//
-//    Changing the direction of integration, that is, the sign of H, requires
-//    the user to set START = TRUE before calling STEP again.  This is the
-//    only situation in which START should be altered.
-//
-//    A successful step: the subroutine returns after each successful step with
-//    START and CRASH both set to FALSE.  X represents the independent variable
-//    advanced by one step of length HOLD from its input value; Y has been
-//    updated to the solution vector at the new value of X.  All other parameters
-//    represent information corresponding to the new X needed to continue the
-//    integration.
-//
-//    Unsuccessful steps: when the error tolerance is too small, the subroutine
-//    returns without taking a step and sets CRASH to TRUE. An appropriate step
-//    size and error tolerance for continuing are estimated and all other
-//    information is restored as upon input before returning.  To continue
-//    with the larger tolerance, the user just calls the code again.  A
-//    restart is neither required nor desirable.
-//
-//  Licensing:
-//
-//    This code is distributed under the MIT license.
-//
-//  Modified:
-//
-//    16 January 2012
-//
-//  Author:
-//
-//    Original FORTRAN77 version by Lawrence Shampine, Marilyn Gordon.
-//    C++ version by John Burkardt.
-//
-//  Reference:
-//
-//    Lawrence Shampine, Marilyn Gordon,
-//    Computer Solution of Ordinary Differential Equations:
-//    The Initial Value Problem,
-//    Freeman, 1975,
-//    ISBN: 0716704617,
-//    LC: QA372.S416.
-//
-//  Parameters:
-//
-//    Input/output, double &X, the value of the independent variable.
-//
-//    Input/output, double Y[NEQN], the approximate solution at the
-//    current value of the independent variable.
-//
-//    Input, void F ( double T, double Y[], double YP[] ), the user-supplied function
-//    which accepts input values T and Y[], evaluates the right hand
-//    sides of the ODE, and stores the result in YP[].
-//
-//    Input, int NEQN, the number of equations.
-//
-//    Input/output, double &H, the suggested stepsize.
-//
-//    Input/output, double &EPS, the local error tolerance.
-//
-//    Input, double WT[NEQN], the vector of error weights.
-//
-//    Input/output, bool &START, is set to TRUE before the first step.
-//    The program initializes data, and resets START to FALSE.
-//
-//    Input/output, double &HOLD, the step size used on the last
-//    successful step.
-//
-//    Input/output, int &K, the appropriate order for the next step.
-//
-//    Input/output, int &KOLD, the order used on the last
-//    successful step.
-//
-//    Output, bool &CRASH, is set to TRUE if no step can be taken.
-//
-//    Workspace, double PHI[NEQN*16], contains divided difference
-//    information about the polynomial interpolant to the solution.
-//
-//    Workspace, double P[NEQN].
-//
-//    Workspace, double YP[NEQN], used to hold values of the
-//    solution derivative.
-//
-//    Workspace, double PSI[12], contains information about
-//    the polynomial interpolant to the solution.
-//
-//    Workspace, double ALPHA[12], BETA[12], SIG[13].
-//
-//    Workspace, double V[12], W[12], G[13].
-//
-//    Input/output, bool &PHASE1, indicates whether the program is in the
-//    first phase, when it always wants to increase the ODE method order.
-//
-//    Input/output, int &NS, the number of steps taken with
-//    stepsize H.
-//
-//    Input/output, bool &NORND, ?
-//
 {
     double absh;
     double erk;
@@ -1536,33 +1098,6 @@ void step
 //****************************************************************************80
 
 void timestamp ( )
-
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TIMESTAMP prints the current YMDHMS date as a time stamp.
-//
-//  Example:
-//
-//    31 May 2001 09:45:54 AM
-//
-//  Licensing:
-//
-//    This code is distributed under the MIT license.
-//
-//  Modified:
-//
-//    08 July 2009
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    None
-//
 {
 # define TIME_SIZE 40
 

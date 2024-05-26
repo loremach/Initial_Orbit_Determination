@@ -1,3 +1,27 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          Accel
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/15
+//
+/* @file Accel.cpp
+ * @brief Computes the acceleration of an Earth orbiting satellite
+ *
+ * @details This file contains the declaration of the function to compute the acceleration of an Earth orbiting satellite due to:
+ * - the Earth's harmonic gravity field,
+ * - the gravitational perturbations of the Sun and Moon,
+ * - the solar radiation pressure, and
+ * - the atmospheric drag.
+ *
+ * @param Mjd_TT Terrestrial Time (Modified Julian Date)
+ * @param Y Satellite state vector in the ICRF/EME2000 system
+ * @return Acceleration (a = d^2r/dt^2) in the ICRF/EME2000 system
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\Accel.h"
 
 Matrix Accel(double x, Matrix & Y){

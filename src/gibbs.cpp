@@ -1,3 +1,28 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          gibbs
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/18
+//
+/*
+ * @file gibbs.cpp
+ * @brief Performs the Gibbs method of orbit determination.
+ *
+ * @details This file contains the implementation of the function to perform the Gibbs method of orbit determination.
+ * This method determines the velocity at the middle point of the 3 given position vectors.
+ *
+ * @param r1 IJK position vector #1 [m]
+ * @param r2 IJK position vector #2 [m]
+ * @param r3 IJK position vector #3 [m]
+ * @param[out] v2 IJK velocity vector for r2 [m/s]
+ * @param[out] theta Angle between vectors [rad]
+ * @param[out] error Flag indicating success ('ok',...)
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\gibbs.h"
 
 void gibbs(Matrix r1,Matrix r2,Matrix r3, Matrix & v2, double & theta, double & theta1, double & cop, string & error){

@@ -1,3 +1,24 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          PrecMatrix
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/03
+//
+/*
+ * @file PrecMatrix.cpp
+ * @brief Precession transformation of equatorial coordinates
+ *
+ * @details This file contains the implementation of the function to perform the precession transformation of equatorial coordinates.
+ *
+ * @param Mjd_1 Epoch given (Modified Julian Date TT)
+ * @param MjD_2 Epoch to precess to (Modified Julian Date TT)
+ * @param[out] PrecMat Precession transformation matrix
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\PrecMatrix.h"
 
 Matrix PrecMatrix(double Mjd_1, double Mjd_2)

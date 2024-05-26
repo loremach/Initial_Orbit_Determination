@@ -1,3 +1,21 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          global
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/18
+//
+/*
+ * @file global.cpp
+ * @brief Implementation file for global data initialization
+ *
+ * @details This file contains the implementation of functions to initialize global data
+ * required by the application, such as Earth Orientation Parameters (EOP), gravity field coefficients, etc.
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\global.h"
 
 Matrix *Global::eopdata;

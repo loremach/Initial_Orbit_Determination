@@ -1,6 +1,32 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          anglesg
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
 //
-// Created by lore0 on 23/05/2024.
+// Created: 2024/05/04
 //
+/*
+ * @file anglesg.cpp
+ * @brief Solves the problem of orbit determination using three optical sightings
+ *
+ * @param az1 Azimuth at t1 in radians
+ * @param az2 Azimuth at t2 in radians
+ * @param az3 Azimuth at t3 in radians
+ * @param el1 Elevation at t1 in radians
+ * @param el2 Elevation at t2 in radians
+ * @param el3 Elevation at t3 in radians
+ * @param Mjd1 Modified Julian Date of t1
+ * @param Mjd2 Modified Julian Date of t2
+ * @param Mjd3 Modified Julian Date of t3
+ * @param Rs1 IJK site1 position vector in meters
+ * @param Rs2 IJK site2 position vector in meters
+ * @param Rs3 IJK site3 position vector in meters
+ * @param r IJK position vector at t2 in meters
+ * @param v IJK velocity vector at t2 in meters per second
+ *
+ * @author Lorena Remacha Bordallo
+*/
 
 #include "..\include\anglesg.h"
 

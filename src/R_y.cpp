@@ -1,5 +1,24 @@
-#include "..\include\R_y.h"
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          R_y
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/14
+//
+/*
+ * @file R_y.cpp
+ * @brief Computes the vector result of rotation
+ *
+ * @details This file contains the implementation of the function to compute the vector result of rotation.
+ *
+ * @param angle Angle of rotation [rad]
+ * @param[out] rotmat Vector result
+ *
+ * @author Lorena Remacha Bordallo
+*/
 
+#include "..\include\R_y.h"
 
 Matrix R_y(double angle){
     double C, S;

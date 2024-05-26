@@ -1,3 +1,21 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          Legendre
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/04/14
+//
+/*
+ * @file Legendre.cpp
+ * @brief Computation of Legendre polynomials and their derivatives
+ *
+ * @details This file contains the implementation of functions for computing Legendre
+ * polynomials and their derivatives.
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
 #include "..\include\Legendre.h"
 
 void Legendre(int n, int m, double fi, Matrix& pnm, Matrix& dpnm){

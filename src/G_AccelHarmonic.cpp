@@ -1,3 +1,27 @@
+// $Source$
+//----------------------------------------------------------------------------------------
+//                          G_AccelHarmonic
+//----------------------------------------------------------------------------------------
+// Under the MIT License 2020
+//
+// Created: 2024/05/08
+//
+/*
+ * @file G_AccelHarmonic.cpp
+ * @brief Computes the gradient of the Earth's harmonic gravity field
+ *
+ * @details This file contains the implementation of the function to compute the gradient of the Earth's harmonic gravity field.
+ *
+ * @param r Satellite position vector in the true-of-date system
+ * @param U Transformation matrix to body-fixed system
+ * @param n Gravity model degree
+ * @param m Gravity model order
+ * @return G Gradient (G = da/dr) in the true-of-date system
+ *
+ * @author Lorena Remacha Bordallo
+*/
+
+
 #include "..\include\G_AccelHarmonic.h"
 
 Matrix G_AccelHarmonic(Matrix r, Matrix U, int n_max, int m_max){
